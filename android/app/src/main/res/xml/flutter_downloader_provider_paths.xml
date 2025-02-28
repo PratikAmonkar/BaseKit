@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- This allows access to the external downloads folder -->
+    <external-path
+        name="download"
+        path="Download/" />
+    <!-- Optionally, you can add other paths for your app here -->
+</paths>
