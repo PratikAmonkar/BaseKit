@@ -51,6 +51,7 @@ dependencies:
   flutter_downloader: ^1.11.7
   package_info_plus: ^8.3.0
   crypto: ^3.0.6
+  app_settings: ^6.1.1
 
 
 
