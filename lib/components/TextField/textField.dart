@@ -1057,3 +1057,152 @@ Widget multiLineTextField({
     ),
   );
 }
+
+Widget outlinedTextFieldWithSuffixIcon({
+  required TextEditingController controller,
+  Color backgroundColor = Colors.transparent,
+  Function(String)? onTextChanged,
+  Function(String)? onSubmitted,
+  String hintText = "",
+  TextInputType keyboardType = TextInputType.text,
+  TextInputAction imeActionType = TextInputAction.next,
+  EdgeInsetsGeometry contentPadding = const EdgeInsets.symmetric(
+    horizontal: 20.0,
+    vertical: 15.0,
+  ),
+  bool isFillColor = true,
+  double borderRadius = 8.0,
+  double cursorWidth = 2.0,
+  Color cursorColor = Colors.black,
+  bool showCursor = true,
+  int maxLines = 1,
+  int minLines = 1,
+  TextAlign textAlign = TextAlign.start,
+  Color borderColor = Colors.black,
+  double borderWidth = 1.0,
+  bool autoCorrect = false,
+  TextCapitalization textCapitalization = TextCapitalization.words,
+  bool isEnable = true,
+  double containerWidth = double.infinity,
+  String? labelText = "",
+  double labelFontSize = 14.0,
+  Color labelFontColor = Colors.black,
+  FontWeight labelFontWeight = FontWeight.w500,
+  double contentGap = 6.0,
+  EdgeInsets iconPadding =
+  const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
+  IconData? prefixIcon,
+  Color? prefixIconColor = Colors.grey,
+  double? prefixIconSize = 18.0,
+  String? prefixImagePath,
+  double prefixImageScale = 2.0,
+  String? suffixImagePath,
+  double suffixImageScale = 2.0,
+  required IconData suffixIcon,
+  Color? suffixIconColor = Colors.grey,
+  double? suffixIconSize = 18.0,
+  double fontSize = 18.0,
+  Color fontColor = Colors.black,
+  FontWeight fontWeight = FontWeight.w500,
+  bool secureText = false,
+  required Function onSuffixAction,
+})
+{
+  return SizedBox(
+    width: containerWidth,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (labelText != null)
+          Text(
+            labelText,
+            style: TextStyle(
+              fontSize: labelFontSize,
+              color: labelFontColor,
+              fontWeight: labelFontWeight,
+            ),
+          ),
+        SizedBox(
+          height: contentGap,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: borderColor,
+              width: borderWidth,
+            ),
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  keyboardType: keyboardType,
+                  textInputAction: imeActionType,
+                  showCursor: showCursor,
+                  cursorColor: cursorColor,
+                  cursorWidth: cursorWidth,
+                  maxLines: maxLines,
+                  textAlign: textAlign,
+                  textCapitalization: textCapitalization,
+                  autocorrect: autoCorrect,
+                  enabled: isEnable,
+                  obscureText: secureText,
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    fontFamily: 'Roboto',
+                    fontWeight: fontWeight,
+                    color: fontColor,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  minLines: minLines,
+                  onChanged: (value) {
+                    if (onTextChanged != null) {
+                      onTextChanged(value);
+                    }
+                  },
+                  onSubmitted: (value) {
+                    if (onSubmitted != null) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      onSubmitted(value);
+                    }
+                  },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: hintText,
+                    contentPadding: contentPadding,
+                    filled: isFillColor,
+                    fillColor: backgroundColor,
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  onSuffixAction();
+                },
+                icon: suffixImagePath != null
+                    ? Padding(
+                  padding: iconPadding,
+                  child: Image.asset(
+                    suffixImagePath,
+                    scale: suffixImageScale,
+                    // fit: BoxFit.con,
+                  ),
+                )
+                    : Padding(
+                  padding: iconPadding,
+                  child: Icon(
+                    suffixIcon,
+                    size: suffixIconSize,
+                    color: suffixIconColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
